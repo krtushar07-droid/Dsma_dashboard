@@ -1,1 +1,273 @@
-hi
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>E-Commerce Analytics</title>
+<meta name="theme-color" content="#F2F4F8" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0E1428" media="(prefers-color-scheme: dark)">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&family=Poppins:wght@800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F2F4F8;--card:#fff;--line:#E3E8F0;--ink:#131B3A;--mute:#66708A;--navy:#18264F;--blue:#3556B5;--chip:#EEF1FB;--warn-bg:#FEF0DC;--warn:#9A5B0B;--ok-bg:#E6F5EC;--ok:#1F6B43;--dot:#E0983C;--brand-ink:#0F1B4D;--brand-blue:#2563FF;--sb:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root{--bg:#0E1428;--card:#17203B;--line:#2A3558;--ink:#F1F4FB;--mute:#9AA6C4;--navy:#4B6BD6;--blue:#8FA8F5;--chip:#223059;--warn-bg:#3A2A12;--warn:#F2B866;--ok-bg:#12332A;--ok:#6FD3A0;--brand-ink:#F1F4FB;--brand-blue:#5B8CFF}}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;margin:0}
+body{background:var(--bg);color:var(--ink);font:15px/1.5 Inter,-apple-system,"Segoe UI",Roboto,sans-serif;padding-bottom:calc(84px + var(--sb))}
+button,input,select,textarea{font:inherit;color:inherit}
+svg{width:22px;height:22px;stroke:currentColor;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round;flex:none}
+header{position:sticky;top:0;z-index:50;background:var(--card);border-bottom:1px solid var(--line);padding:12px 18px;padding-top:calc(12px + env(safe-area-inset-top,0px));display:flex;align-items:center;gap:10px}
+.brand{display:flex;align-items:center;gap:10px;flex:1}
+.mark{width:40px;height:40px;border-radius:12px;flex:none;display:grid;place-items:center;background:var(--brand-blue);color:#fff;font-weight:bold;font-size:18px;}
+.wordmark{font:800 24px/1 Poppins,Inter,-apple-system,"Segoe UI",sans-serif;letter-spacing:-1px;color:var(--brand-ink)}.wordmark b{font-weight:800;color:var(--brand-blue)}
+main{max-width:720px;margin:0 auto;padding:22px 18px}
+.eyebrow{font-size:12px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--blue)}
+h1{font:700 34px/1.1 "Source Serif 4",Georgia,serif;letter-spacing:-.5px;margin:10px 0 8px}
+h2{font:700 24px/1.2 "Source Serif 4",Georgia,serif;margin:26px 0 12px}
+h3{font-size:17px;font-weight:600;line-height:1.3;overflow-wrap:anywhere}
+.sub{color:var(--mute)}.meta{color:var(--mute);font-size:14px;overflow-wrap:anywhere}
+.pill{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--card);border-radius:99px;padding:4px 12px;font-size:12px;color:var(--mute);margin-top:12px}
+.pill i{width:7px;height:7px;border-radius:50%;background:#2FA36B}
+.card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:18px;margin-bottom:14px}
+.row{display:flex;align-items:flex-start;gap:12px}.grow{flex:1;min-width:0}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:20px 0 14px}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px;text-align:left;}
+.stat small{display:block;color:var(--mute);font-size:13px}
+.stat div{display:flex;justify-content:space-between;align-items:center;margin-top:14px}
+.stat b{font-size:28px;font-weight:600;line-height:1}
+.tag{display:inline-block;background:var(--chip);color:var(--blue);border-radius:10px;padding:4px 12px;font-size:13px;font-weight:600}
+.tag.warn{background:var(--warn-bg);color:var(--warn)}.tag.ok{background:var(--ok-bg);color:var(--ok)}
+.tags{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0 0}.tags .tag{background:var(--bg);color:var(--ink);border:1px solid var(--line);font-weight:500}
+.logo{width:48px;height:48px;border-radius:14px;background:var(--chip);color:var(--navy);font-weight:700;font-size:20px;display:grid;place-items:center;flex:none}
+.loc{margin-top:12px}
+nav{position:fixed;bottom:0;left:0;right:0;background:var(--card);border-top:1px solid var(--line);display:flex;padding-bottom:var(--sb);z-index:50}
+nav button{flex:1;border:0;background:none;color:var(--mute);padding:10px 0;font-size:12px;font-weight:600;display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer}
+nav button.on{color:var(--ink)}nav button.on svg{stroke-width:2.4}
+.bar-chart { margin-top: 16px; border-top: 1px solid var(--line); padding-top: 12px; }
+.bar-row { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; font-size: 13px; font-weight: 600; }
+.bar-label { width: 80px; flex: none; color: var(--mute); }
+.bar-track { flex: 1; background: var(--line); height: 8px; border-radius: 4px; overflow: hidden; }
+.bar-fill { background: var(--blue); height: 100%; border-radius: 4px; }
+.bar-val { width: 50px; flex: none; text-align: right; }
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">
+    <div class="mark">EC</div>
+    <span class="wordmark">Data<b>Dash</b></span>
+  </div>
+</header>
+
+<main id="app"></main>
+<nav id="nav"></nav>
+
+<script>
+const $ = id => document.getElementById(id);
+
+// Icons
+const svg = p => `<svg viewBox="0 0 24 24">${p}</svg>`;
+const ic = {
+ overview: svg('<rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/>'),
+ channels: svg('<path d="M17 8h3v10a2 2 0 0 1-2 2"/><path d="M8 8h5M8 12h5M8 16h5"/><path d="M4 4h13v16H6a2 2 0 0 1-2-2z"/>'),
+ campaigns: svg('<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/>'),
+ categories: svg('<path d="M6 3h12v18l-6-4-6 4z"/>')
+};
+
+// Data directly extracted from the CIA 2 Analytics Report
+const DATA = {
+  overview: {
+    sessions: "1,800",
+    revenue: "₹312,610",
+    orders: 73,
+    conversion: "4.1%",
+    aov: "₹4,282",
+    bounce_rate: "29.4%",
+    roas: "7.16x"
+  },
+  channels: [
+    { name: "Organic Search", sessions: 418, cr: "4.5%", rev: "₹115,050", aov: "₹6,055", revPerSession: "₹275", share: 36.8 },
+    { name: "Email", sessions: 183, cr: "7.7%", rev: "₹65,509", aov: "₹4,679", revPerSession: "₹358", share: 21.0 },
+    { name: "Paid Search", sessions: 370, cr: "3.8%", rev: "₹44,958", aov: "₹3,211", revPerSession: "₹122", share: 14.4 },
+    { name: "Direct", sessions: 288, cr: "4.9%", rev: "₹40,927", aov: "₹2,923", revPerSession: "₹142", share: 13.1 },
+    { name: "Paid Social", sessions: 330, cr: "2.4%", rev: "₹27,127", aov: "₹3,391", revPerSession: "₹82", share: 8.7 },
+    { name: "Referral", sessions: 116, cr: "2.6%", rev: "₹10,293", aov: "₹3,431", revPerSession: "₹89", share: 3.3 },
+    { name: "Display", sessions: 95, cr: "1.1%", rev: "₹8,746", aov: "₹8,746", revPerSession: "₹92", share: 2.8 }
+  ],
+  campaigns: [
+    { name: "SEM-Generic", roas: "8.45x", cpa: "₹449", spend: "₹427,062", rev: "₹3,609,305", type: "Search" },
+    { name: "SEM-Competitor", roas: "7.86x", cpa: "₹497", spend: "₹463,606", rev: "₹3,642,274", type: "Search" },
+    { name: "SEM-Brand", roas: "7.48x", cpa: "₹510", spend: "₹485,955", rev: "₹3,634,448", type: "Search" },
+    { name: "Display-Prospecting", roas: "6.59x", cpa: "₹385", spend: "₹46,976", rev: "₹309,633", type: "Display" },
+    { name: "Social-Retargeting", roas: "5.67x", cpa: "₹512", spend: "₹174,542", rev: "₹989,821", type: "Social" },
+    { name: "Social-Prospecting", roas: "4.94x", cpa: "₹586", spend: "₹180,024", rev: "₹888,748", type: "Social" }
+  ],
+  categories: [
+    { name: "Electronics", rev: "₹149,081", aov: "₹7,846", share: 47.7, cr: "4.3%" },
+    { name: "Home & Kitchen", rev: "₹77,314", aov: "₹4,548", share: 24.7, cr: "4.7%" },
+    { name: "Fashion", rev: "₹51,500", aov: "₹2,861", share: 16.5, cr: "3.9%" },
+    { name: "Sports", rev: "₹22,624", aov: "₹2,828", share: 7.2, cr: "3.6%" },
+    { name: "Beauty", rev: "₹12,092", aov: "₹1,099", share: 3.9, cr: "3.6%" }
+  ]
+};
+
+const TABS = [
+  ['overview', 'Overview'],
+  ['channels', 'Channels'],
+  ['campaigns', 'Campaigns'],
+  ['categories', 'Categories']
+];
+
+let currentTab = 'overview';
+const statCard = (label, val, tag, tagClass="ok") => `
+  <div class="stat">
+    <small>${label}</small>
+    <div><b>${val}</b><span class="tag ${tagClass}">${tag}</span></div>
+  </div>`;
+
+function vOverview() {
+  return `
+    <div class="eyebrow">Executive Summary</div>
+    <h1>Performance Overview</h1>
+    <p class="sub">1 August – 30 September 2026</p>
+    <span class="pill"><i></i>Live Analytics</span>
+    
+    <div class="grid">
+      ${statCard('Total Revenue', DATA.overview.revenue, 'Actual')}
+      ${statCard('Total Sessions', DATA.overview.sessions, 'Volume', '')}
+      ${statCard('Conversion Rate', DATA.overview.conversion, DATA.overview.orders + ' Orders')}
+      ${statCard('Average Order (AOV)', DATA.overview.aov, 'Value')}
+    </div>
+
+    <div class="card">
+      <h3>Key Findings</h3>
+      <p class="meta" style="margin-top:10px">
+        • <b>Engagement is Key:</b> Engaged sessions convert at 5.5% versus 0.6% for bounced sessions.<br><br>
+        • <b>Top Drivers:</b> Organic Search and Email produce ~58% of revenue from 33% of sessions with zero session ad cost.<br><br>
+        • <b>Mobile First:</b> Mobile accounts for 63% of sessions and ~70% of revenue. Desktop lags at 3.4% conversion.
+      </p>
+    </div>
+  `;
+}
+
+function vChannels() {
+  const cards = DATA.channels.map(ch => {
+    const tagType = parseFloat(ch.cr) >= 4.1 ? 'ok' : 'warn';
+    return `
+      <div class="card">
+        <div class="row">
+          <div class="logo">${ch.name.substring(0, 2).toUpperCase()}</div>
+          <div class="grow">
+            <h3>${ch.name}</h3>
+            <div class="meta">${ch.sessions} Sessions · ${ch.share}% of Total Revenue</div>
+          </div>
+        </div>
+        <div class="grid" style="margin: 14px 0 0;">
+          <div class="stat"><small>Revenue</small><div><b style="font-size:18px">${ch.rev}</b></div></div>
+          <div class="stat"><small>Conv. Rate</small><div><b style="font-size:18px">${ch.cr}</b><span class="tag ${tagType}">${ch.cr}</span></div></div>
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  return `
+    <div class="eyebrow">Traffic Sources</div>
+    <h1>Channel Efficiency</h1>
+    <p class="sub">Organic Search and Email carry the business.</p>
+    <div style="height:14px"></div>
+    ${cards}
+  `;
+}
+
+function vCampaigns() {
+  const cards = DATA.campaigns.map(cp => {
+    const roasNum = parseFloat(cp.roas);
+    const tagType = roasNum >= 7.16 ? 'ok' : 'warn';
+    return `
+      <div class="card">
+        <div class="row">
+          <div class="grow">
+            <h3>${cp.name}</h3>
+            <div class="meta">${cp.type} Campaign</div>
+          </div>
+          <span class="tag ${tagType}">${cp.roas} ROAS</span>
+        </div>
+        <div class="tags">
+          <span class="tag">Spend: ${cp.spend}</span>
+          <span class="tag">CPA: ${cp.cpa}</span>
+        </div>
+        <div class="meta loc">Attributed Rev: <b>${cp.rev}</b></div>
+      </div>
+    `;
+  }).join('');
+
+  return `
+    <div class="eyebrow">Advertising</div>
+    <h1>Campaign Performance</h1>
+    <p class="sub">Overall ROAS: 7.16x | Average CPA: ₹491</p>
+    <div style="height:14px"></div>
+    ${cards}
+  `;
+}
+
+function vCategories() {
+  const cards = DATA.categories.map(cat => {
+    return `
+      <div class="card">
+        <div class="row">
+          <div class="grow">
+            <h3>${cat.name}</h3>
+            <div class="meta">${cat.cr} Conversion Rate</div>
+          </div>
+          <span class="tag ok">${cat.share}% Share</span>
+        </div>
+        <div class="bar-chart">
+          <div class="bar-row">
+            <span class="bar-label">Revenue</span>
+            <div class="bar-track"><div class="bar-fill" style="width: ${cat.share}%"></div></div>
+            <span class="bar-val">${cat.rev}</span>
+          </div>
+        </div>
+        <div class="meta loc">Average Order Value: <b>${cat.aov}</b></div>
+      </div>
+    `;
+  }).join('');
+
+  return `
+    <div class="eyebrow">Merchandising</div>
+    <h1>Product Categories</h1>
+    <p class="sub">Electronics is the primary revenue engine.</p>
+    <div style="height:14px"></div>
+    ${cards}
+  `;
+}
+
+function render() {
+  $('nav').innerHTML = TABS.map(([k, l]) => 
+    `<button class="${k === currentTab ? 'on' : ''}" data-go="${k}">${ic[k]}${l}</button>`
+  ).join('');
+  
+  const views = {
+    overview: vOverview,
+    channels: vChannels,
+    campaigns: vCampaigns,
+    categories: vCategories
+  };
+  
+  $('app').innerHTML = views[currentTab]();
+}
+
+document.addEventListener('click', e => {
+  const btn = e.target.closest('[data-go]');
+  if (btn) {
+    currentTab = btn.dataset.go;
+    window.scrollTo(0,0);
+    render();
+  }
+});
+
+render();
+</script>
+</body>
+</html>
+
